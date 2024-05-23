@@ -2,7 +2,7 @@
 
 5주차~8주차까지 진행되는 React 과제를 수행하는 레포지토리입니다. 해당 과제부터 브랜치 전략이 변경되었으니 아래와 같이 변경해주세요.
 
-# 새로운 브랜치 전략
+## 새로운 브랜치 전략
 
 ### 1. 브랜치 생성
 
@@ -38,5 +38,41 @@ main 에서 아래와 같은 이름의 브랜치를 생성합니다. 저의 경�
 - 그 다음 주차 과제는 `이름_working` 브랜치에서 다시 작업을 이어나가면 됩니다.
 
 <img width="1013" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/b7730b9c-f458-436d-80eb-6bb011f5af6c">
+
+### 5. 주의할 점!!
+
+아마 `create-react-app` 으로 프로젝트를 생성한 경우 `.gitignore` 파일이 자동으로 생성되어 있겠으나, 만에 하나 없는 경우 `.gitignore` 파일을 생성하고 아래와 같이 입력해주세요.
+
+```
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.vscode
+*.local
+.env
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local Netlify folder
+.netlify
+```
 
 
