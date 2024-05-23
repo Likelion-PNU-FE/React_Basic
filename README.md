@@ -1,4 +1,4 @@
-<img width="449" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/d0616a32-f067-4e62-801b-dfe27bab5782"># React
+# React
 
 5주차~8주차까지 진행되는 React 과제를 수행하는 레포지토리입니다. 해당 과제부터 브랜치 전략이 변경되었으니 아래와 같이 변경해주세요.
 
