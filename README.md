@@ -1,4 +1,4 @@
-# React
+<img width="449" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/d0616a32-f067-4e62-801b-dfe27bab5782"># React
 
 5주차~8주차까지 진행되는 React 과제를 수행하는 레포지토리입니다. 해당 과제부터 브랜치 전략이 변경되었으니 아래와 같이 변경해주세요.
 
@@ -11,9 +11,16 @@ main 에서 아래와 같은 이름의 브랜치를 생성합니다. 저의 경�
 > - `이름`
 > - `이름_working`
   
-<img width="713" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2147a129-b1f6-40f8-815b-751b399bd80c">
+<img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2147a129-b1f6-40f8-815b-751b399bd80c">
 
-<img width="741" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2a347a83-5f9f-4d53-b581-b2764fc32682">
+<img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2a347a83-5f9f-4d53-b581-b2764fc32682">
+
+<img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/9c641993-f0dc-476c-af05-8e7f72d1a86a">
+
+<img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/b4f8585b-683c-4d68-9fe3-92b6e68076a4">
+
+<img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/6b73367d-3571-4cc6-a01e-db43a55419ec">
+
 
 ### 2. 브랜치 설명
 
