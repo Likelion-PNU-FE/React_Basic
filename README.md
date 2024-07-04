@@ -10,7 +10,7 @@ main 에서 아래와 같은 이름의 브랜치를 생성합니다. 저의 경�
 
 > - `이름`
 > - `이름_working`
-  
+
 <img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2147a129-b1f6-40f8-815b-751b399bd80c">
 
 <img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/2a347a83-5f9f-4d53-b581-b2764fc32682">
@@ -21,16 +21,15 @@ main 에서 아래와 같은 이름의 브랜치를 생성합니다. 저의 경�
 
 <img width="650" alt="image" src="https://github.com/Likelion-PNU-FE/React_Basic/assets/80307321/6b73367d-3571-4cc6-a01e-db43a55419ec">
 
-
 ### 2. 브랜치 설명
 
 1. **`이름` (예시: Suyeon) 브랜치**
-   
+
    해당 브랜치는 `이름_working` 에서 작업한 내용을 모두 합치는 브랜치예요. 이전엔 `main` 에 자신이 작업한 것을 합쳤다면 이젠 `이름` 브랜치에 합치면 돼요.
 
 2. **`이름_working` (예시: Suyeon_working) 브랜치**
-   
-  해당 브랜치는 실질적인 작업이 이뤄지는 브랜치예요. `이름_working` 에서 과제를 진행하고 난 다음, PR 을 올릴 땐 `이름` 브랜치로 merge 하면 돼요.
+
+해당 브랜치는 실질적인 작업이 이뤄지는 브랜치예요. `이름_working` 에서 과제를 진행하고 난 다음, PR 을 올릴 땐 `이름` 브랜치로 merge 하면 돼요.
 
 ### 3. PR 작성하기
 
@@ -81,5 +80,3 @@ dist-ssr
 # Local Netlify folder
 .netlify
 ```
-
-
