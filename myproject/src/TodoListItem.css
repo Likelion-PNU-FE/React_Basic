@@ -1,0 +1,35 @@
+.checkButton,
+.deleteButton {
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 5px;
+  border-color: beige;
+}
+
+.check,
+.delete {
+  display: flex;
+  align-items: center;
+}
+.Item {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+.text{
+    margin-right: 0px;
+  
+}
+
+.checked {
+    /* 체크된 상태일 때의 스타일 */
+    text-decoration: line-through;
+    color: #999;
+  }
