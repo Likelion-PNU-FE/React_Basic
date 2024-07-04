@@ -5,7 +5,7 @@ export default function Todo({todo}) {
 
   function toggleComplete() {
     fetch(`http://localhost:3001/todos/${todo.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({...isComplete, isComplete: !isComplete}),
     }).then((res) => {

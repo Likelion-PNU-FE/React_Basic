@@ -13,7 +13,6 @@ export default function TodoLists() {
         setTodos(data);
       });
   }, []);
-  console.log(todos);
 
   return (
     <div className="todos">
