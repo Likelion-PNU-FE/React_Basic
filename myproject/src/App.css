@@ -1,0 +1,15 @@
+.Name {
+  text-align: center;
+  font-weight: 500;
+  font-size: 40px;
+  margin-top: 50px;
+ 
+  
+}
+.App{
+  text-align: center;
+}
+
+body{
+  background-color: beige; 
+}
