@@ -2,6 +2,7 @@ import {useState} from "react";
 
 export default function Todo({todo}) {
   const [isComplete, setComplete] = useState(todo.isComplete);
+  const [isDel, setDel] = useState(todo);
 
   function toggleComplete() {
     fetch(`http://localhost:3001/todos/${todo.id}`, {
@@ -17,10 +18,19 @@ export default function Todo({todo}) {
   }
 
   const clickDelete = () => {
-    fetch(`http://localhost:3001/todos/${todo.id}`, {
+    fetch(`http://localhost:3001/todos/${isDel.id}`, {
       method: "DELETE",
+    }).then((res) => {
+      if (res.ok) {
+        setDel({id: 0});
+        console.log(isDel.id);
+      }
     });
   };
+
+  if (todo.id === 0) {
+    return null;
+  }
 
   return (
     <div>
