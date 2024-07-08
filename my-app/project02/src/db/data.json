@@ -1,18 +1,38 @@
 {
   "todos": [
     {
-      "isComplete": false,
+      "isComplete": true,
+      "name": "clean2",
+      "id": "2"
+    },
+    {
+      "isComplete": true,
       "name": "clean3",
       "id": "3"
     },
     {
-      "isComplete": false,
+      "isComplete": true,
       "name": "clean4",
       "id": "4"
     },
     {
+      "isComplete": false,
+      "name": "clean5",
+      "id": "5"
+    },
+    {
+      "isComplete": false,
+      "name": "clean6",
+      "id": "6"
+    },
+    {
       "id": "ec5a",
       "name": "밥먹기",
+      "isComplete": false
+    },
+    {
+      "id": "d266",
+      "name": "콩",
       "isComplete": false
     },
     {
