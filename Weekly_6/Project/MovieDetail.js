@@ -13,10 +13,12 @@ const MovieDetail = ({ imdbID, onBack }) => {
 
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     // 랜더링 시마다 fetch를 실행할 것이므로 그냥 useEffect 썼음
     // 함수 -> 함수(title)해도 되긴 함
     useEffect(() => {
+        setLoading(true);
         fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`)
             .then((res) => res.json())
             .then((data) => {
@@ -32,6 +34,9 @@ const MovieDetail = ({ imdbID, onBack }) => {
             .catch((error) => {
                 setError('에러 발생');
                 setMovie(null);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, [imdbID]);
 
@@ -40,19 +45,39 @@ const MovieDetail = ({ imdbID, onBack }) => {
         return <p style={{ color: 'red' }}>{error}</p>;
     }
 
-    // 데이터가 로딩시에 즉 movie = null일 경우에는 Loading을 띄워서 기다리는 중이라 표현
-    if (!movie) {
+    if (loading) {
+        // 데이터가 로딩시에 즉 movie = null일 경우에는 Loading을 띄워서 기다리는 중이라 표현
         return <p>Loading...</p>;
     }
 
     return (
         <div>
+            <img src={movie.Poster} alt='' />
             <h1>{movie.Title}</h1>
-            <img src={movie.Poster} alt={`${movie.Title}의 포스터`} />
-            <p>{movie.Plot}</p>
-            <p>Year: {movie.Year}</p>
-            <p>Genre: {movie.Genre}</p>
-            <p>Director: {movie.Director}</p>
+            <p>
+                {movie.Genre} / {movie.Year}
+            </p>
+            <hr></hr>
+            <p>
+                <strong>상영시간</strong>
+                <br></br>
+                {movie.Runtime}
+            </p>
+            <p>
+                <strong>감독</strong>
+                <br></br>
+                {movie.Director}
+            </p>
+            <p>
+                <strong>배우</strong>
+                <br></br>
+                {movie.Actors}
+            </p>
+            <p>
+                <strong>줄거리</strong>
+                <br></br>
+                {movie.Plot}
+            </p>
             <button onClick={onBack}>Back to Menu</button>
         </div>
     );

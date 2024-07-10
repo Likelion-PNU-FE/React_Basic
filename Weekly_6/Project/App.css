@@ -1,0 +1,14 @@
+body{
+  margin : 0;
+  background-color : #131313;
+  color : #ffffff;
+}
+
+.page_button_container {
+  display: flex;
+  justify-content: center; /* 가로 가운데 정렬 */
+}
+
+.page_button_container button {
+  margin: 0 2px; /* 버튼 간격 조정 */
+}
