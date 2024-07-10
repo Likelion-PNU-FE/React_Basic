@@ -51,34 +51,39 @@ const MovieDetail = ({ imdbID, onBack }) => {
     }
 
     return (
-        <div>
-            <img src={movie.Poster} alt='' />
-            <h1>{movie.Title}</h1>
-            <p>
-                {movie.Genre} / {movie.Year}
-            </p>
-            <hr></hr>
-            <p>
-                <strong>상영시간</strong>
-                <br></br>
-                {movie.Runtime}
-            </p>
-            <p>
-                <strong>감독</strong>
-                <br></br>
-                {movie.Director}
-            </p>
-            <p>
-                <strong>배우</strong>
-                <br></br>
-                {movie.Actors}
-            </p>
-            <p>
-                <strong>줄거리</strong>
-                <br></br>
-                {movie.Plot}
-            </p>
-            <button onClick={onBack}>Back to Menu</button>
+        <div className='detail_container'>
+            <div className='detail_content'>
+                <img className='detail_poster' src={movie.Poster} alt='' />
+                <div className='detail_details'>
+                    <h1 className='detail_title'>{movie.Title}</h1>
+                    <div className='detail_info'>
+                        <p>
+                            {movie.Genre} / {movie.Year}
+                        </p>
+                        <hr />
+                        <p>
+                            <strong>상영시간</strong>
+                            {movie.Runtime}
+                        </p>
+                        <p>
+                            <strong>감독</strong>
+                            {movie.Director}
+                        </p>
+                        <p>
+                            <strong>배우</strong>
+                            {movie.Actors}
+                        </p>
+                        <p>
+                            <strong>줄거리</strong>
+                            {movie.Plot}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <button className='detail_button' onClick={onBack}>
+                Back to Menu
+            </button>
         </div>
     );
 };

@@ -1,6 +1,12 @@
 .container {
   width: 100%;
   height: 80px;
+  /*
+    display: flex => flexbox 레이아웃으로 설정하는 속성
+    -> 자식 요소 자유롭게 배치 정렬 가능
+    ex) 크기 조절 ( 컨테이너 크기에 맞추어 자동 조절 가능 )
+    ex) 정렬 ( justify-content, align-items )
+  */
   display: flex;
   align-items: center;
   justify-content: center;
