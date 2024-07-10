@@ -1,0 +1,8 @@
+.todoList {
+    font-family: Arial, sans-serif;
+}
+
+.writing {
+    display: flex;
+    align-items: center;
+}
