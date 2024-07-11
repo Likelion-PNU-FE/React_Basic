@@ -3,6 +3,7 @@
 // 이후 back to menu등으로 돌아갈 수 있도록 함
 
 import React, { useState, useEffect } from 'react';
+import './MovieDetail.css';
 
 // 수정1] MovieDetail을 title 기반으로 하니 title 중 가장 먼저나오는 이름에 관해 나옴
 // frozen의 경우 2개가 있는데 그 중 첫 번째게 먼저 나오는 문제
@@ -38,7 +39,7 @@ const MovieDetail = ({ imdbID, onBack }) => {
             .finally(() => {
                 setLoading(false);
             });
-    }, [imdbID]);
+    }, [imdbID, apiKey]);
 
     // 만약 error라면 앞처럼 error 글자를 띄워줌
     if (error) {
@@ -52,38 +53,40 @@ const MovieDetail = ({ imdbID, onBack }) => {
 
     return (
         <div className='detail_container'>
-            <div className='detail_content'>
-                <img className='detail_poster' src={movie.Poster} alt='' />
-                <div className='detail_details'>
-                    <h1 className='detail_title'>{movie.Title}</h1>
-                    <div className='detail_info'>
-                        <p>
-                            {movie.Genre} / {movie.Year}
-                        </p>
-                        <hr />
-                        <p>
-                            <strong>상영시간</strong>
-                            {movie.Runtime}
-                        </p>
-                        <p>
-                            <strong>감독</strong>
-                            {movie.Director}
-                        </p>
-                        <p>
-                            <strong>배우</strong>
-                            {movie.Actors}
-                        </p>
-                        <p>
-                            <strong>줄거리</strong>
-                            {movie.Plot}
-                        </p>
+            <div className='detail_content_container'>
+                <div className='detail_content'>
+                    <img className='detail_poster' src={movie.Poster} alt='' />
+                    <div className='detail_details'>
+                        <h1 className='detail_title'>{movie.Title}</h1>
+                        <div className='detail_info'>
+                            <p>
+                                {movie.Genre} / {movie.Year}
+                            </p>
+                            <hr />
+                            <p>
+                                <strong>상영시간</strong>
+                                {movie.Runtime}
+                            </p>
+                            <p>
+                                <strong>감독</strong>
+                                {movie.Director}
+                            </p>
+                            <p>
+                                <strong>배우</strong>
+                                {movie.Actors}
+                            </p>
+                            <p>
+                                <strong>줄거리</strong>
+                                {movie.Plot}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <button className='detail_button' onClick={onBack}>
-                Back to Menu
-            </button>
+                <button className='detail_button' onClick={onBack}>
+                    Back to Menu
+                </button>
+            </div>
         </div>
     );
 };

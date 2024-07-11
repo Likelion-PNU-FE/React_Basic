@@ -6,11 +6,13 @@ import './MovieList.css';
 // 리스트 생성 ( 10개 )
 const MovieList = ({ movies, onMovieClick }) => {
     return (
-        // 키 속성 -> 고유 식별 위해 사용 / 없어도 되나 경고 메시지
-        <div className='movie_list'>
-            {movies.map((movie) => (
-                <MovieItem key={movie.imdbID} movie={movie} onMovieClick={onMovieClick} />
-            ))}
+        //키 속성 -> 고유 식별 위해 사용 / 없어도 되나 경고 메시지
+        <div className='movieList_container'>
+            <div className='movie_list'>
+                {movies.map((movie) => (
+                    <MovieItem key={movie.imdbID} movie={movie} onMovieClick={onMovieClick} />
+                ))}
+            </div>
         </div>
     );
 };

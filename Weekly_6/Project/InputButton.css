@@ -12,6 +12,8 @@
   justify-content: center;
   background-color : #242424;
   color : #ffffff;
+
+  margin-bottom:10px; /*아래 요소들(예로 MovieList, MovieDetail)이랑 약간의 공간을 만들고 싶어서 10px만큼 띄워줬음*/
 }
 
 .input_container {
