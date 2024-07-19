@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import instance from '../axiosInstance'; // axiosInstance를 불러옵니다.
 import '../styles/MovieDetail.css';
+import likelionLogo from '../images/likelion_logo.png';
 
 const MovieDetail = ({ imdbID, onBack }) => {
     const [movie, setMovie] = useState(null);
@@ -35,6 +36,10 @@ const MovieDetail = ({ imdbID, onBack }) => {
         fetchMovieData();
     }, [imdbID]);
 
+    const handleError = (event) => {
+        event.target.src = likelionLogo;
+    };
+
     if (error) {
         return <p style={{ color: 'red' }}>{error}</p>;
     }
@@ -47,7 +52,7 @@ const MovieDetail = ({ imdbID, onBack }) => {
         <div className='detail_container'>
             <div className='detail_content_container'>
                 <div className='detail_content'>
-                    <img className='detail_poster' src={movie.Poster} alt='' />
+                    <img className='detail_poster' src={movie.Poster} alt={movie.Title} onError={handleError} />
                     <div className='detail_details'>
                         <h1 className='detail_title'>{movie.Title}</h1>
                         <div className='detail_info'>

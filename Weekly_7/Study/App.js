@@ -1,6 +1,3 @@
-// infinity scroll 잘 되는데 계속 loading 되는 문제가 있음..?
-// setLoading을 fetchMovies 받을때마다 해서 그런 듯
-
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import InputButton from './components/InputButton';
 import MovieDetail from './components/MovieDetail';
@@ -11,33 +8,98 @@ import './styles/App.css';
 const App = () => {
     const [movies, setMovies] = useState([]);
     const [selectedMovieID, setSelectedMovieID] = useState(null);
-    // 에러 뜨니까 페이지 전체에 error가 나와서 error 변수 추가
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false); // Loading 상태 추가
+    const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    // null은 DOM이 FALSE이자 RENDERING 하지 않음 / 하지만 0은 FALSE로 인식하지만 RENDERING 하기에 0으로 하면 버튼 값으로 0이 뜰 때가 존재함. 그래서 NULL로 설정
-    const [searchTerm, setSearchTerm] = useState(''); // 페이지 찾으려보니 searchTerm이 필요함( frozen같이 처음 넣은 주제 값 )
+    const [searchTerm, setSearchTerm] = useState('');
     const [totalPages, setTotalPages] = useState(1);
-
     const observerRef = useRef(null);
 
-    const handleObserver = useCallback((entries) => {
-        const target = entries[0]; // 가장 먼저 교차 요소가 변경된 요소를 가져옴??..
-        if (target.isIntersecting && currentPage < totalPages) {
-            setCurrentPage((prevPage) => prevPage + 1);
+    const handleMovieClick = (imdbID) => {
+        setSelectedMovieID(imdbID);
+    };
+
+    const handleBackClick = () => {
+        setSelectedMovieID(null);
+    };
+
+    const setInputMovie = (name) => {
+        if (name === searchTerm) {
+            return;
+        } // 동일한 값 계속 입력하면 prev 1 증가하는 문제 때문에 추가했음
+        setSelectedMovieID(null);
+        setMovies([]);
+        setSearchTerm(name);
+    };
+
+    // 기존 setInputMovie 내에 curPage 종속으로 인한 useEffect 이용을 위해 fetchMovies를 setInputMovie에 안 넣었음
+    // 따라서 searchTerm이 변경되고 나서 setCurrentPage를 불러오는 것으로 만들었음
+    useEffect(() => {
+        if (searchTerm) {
+            setCurrentPage(1);
+            // 기존 searchTerm 실행할 때 page가 원래 1이라면 currentPage 변경에 대한 useEffect를 안 부르는 문제가 있어 변경했음
+            fetchMovies(searchTerm, 1);
         }
-    });
+    }, [searchTerm]);
+
+    useEffect(() => {
+        fetchMovies(searchTerm, currentPage);
+    }, [currentPage]);
+
+    const fetchMovies = async (name, page = 1) => {
+        if (!name) return; // name이 빈 배열일 때 또한 searchTerm에 종속된 useEffect때문에 fetchMovies 실행함. 이를 막기위해 빈 배열이면 return;을 바로 해줬음
+        setLoading(true);
+        try {
+            const res = await instance.get('/', {
+                params: {
+                    s: name,
+                    page: page,
+                },
+            });
+            const data = res.data;
+            if (data.Response === 'True') {
+                setTimeout(() => {
+                    if (page === 1) {
+                        setMovies(data.Search);
+                        setTotalPages(Math.ceil(data.totalResults / 10));
+                    } else {
+                        setMovies((prevMovies) => [...prevMovies, ...data.Search]);
+                    }
+                    setError(null);
+                    setLoading(false);
+                }, 1000); // 1초 지연
+            } else {
+                setError(data.Error);
+                setMovies([]);
+                setTotalPages(1);
+                setLoading(false);
+            }
+        } catch (error) {
+            setError('에러 발생');
+            setMovies([]);
+            setTotalPages(1);
+            setLoading(false);
+        }
+    };
+
+    const handleObserver = useCallback(
+        (entries) => {
+            const target = entries[0]; // 가장 먼저 교차 요소가 교차된 친구를 가져옴
+            if (target.isIntersecting && currentPage < totalPages && !loading) {
+                setCurrentPage((prevPage) => prevPage + 1);
+            }
+        },
+        [totalPages, loading] // loading이 포함이 안 되면 한 번에 계속 내릴 때 다음 게 안 뜸, currentPage는 없어도 됨
+    );
 
     useEffect(() => {
         const option = {
-            root: null, //기본 값 Root (viewport)
-            threshold: 1.0, //임계값 설정 (옵저빙 중인 요소가 100% 보이면 callback 실행)
+            root: null,
+            threshold: 0.9, // 왜 1.0이면 구현이 안 될까?
         };
-        //옵저빙 객체 생성
         const observer = new IntersectionObserver(handleObserver, option);
         const currentObserverRef = observerRef.current;
 
-        //옵저빙 설정
         if (currentObserverRef) {
             observer.observe(currentObserverRef);
         }
@@ -47,85 +109,18 @@ const App = () => {
                 observer.unobserve(currentObserverRef);
             }
         };
-    }, [handleObserver]);
+    }, [handleObserver, selectedMovieID]); // useCallback이나 여기에 selectedMovieID를 넣지 않으면 Detail을 보고 back to Menu로 오고나서 infinite Scroll 적용 안 됨
 
-    const setInputMovie = (name) => {
-        // 기존 set SelectedMovie null 없을 때 검색을 입력하면 바로 복귀하지 않고
-        // back to menu를 누른 다음에야 원래로 돌아가는 문제가 있었음. 그래서 추가
-        setSelectedMovieID(null);
-        setSearchTerm(name);
-        setCurrentPage(1);
-        setMovies([]); // 새로운 값이 들어오면 Movies 배열 초기화로 혹시 모를 중복 방지
-        fetchMovies(name, 1);
-    };
-
-    // title을 입력했을 때 뜨는 10개의 리스트에 대한 반환
-    const fetchMovies = async (name, page = 1) => {
-        if (page === 1) {
-            setLoading(true);
-        }
-
-        try {
-            const res = await instance.get('/', {
-                params: {
-                    s: name,
-                    page: page,
-                },
-            });
-            console.log(res.data);
-            const data = res.data;
-            if (data.Response === 'True') {
-                if (page === 1) {
-                    setMovies(data.Search);
-                    setTotalPages(Math.ceil(data.totalResults / 10));
-                } else {
-                    setMovies((prevMovies) => [...prevMovies, ...data.Search]);
-                }
-                setError(null);
-            } else {
-                setError(data.Error);
-                setMovies([]);
-            }
-        } catch (error) {
-            console.error('Fetch movies error:', error);
-            setError('에러 발생');
-            setMovies([]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // handleMovieClick 은 클릭되면 해당 Poster에 맞는 ID값을 받기위해 만듦
-    // ID값을 받으면 null에서 ID값으로 변경되기에 해당 ID에 맞는 포스터가 렌더링
-    const handleMovieClick = (imdbID) => {
-        setSelectedMovieID(imdbID);
-    };
-
-    // handleBackClick은 클릭되면 null을 받아서 List가 렌더링 됨
-    // 포스터에서 back to Menu 버튼을 누르면 실행되는 익명함수
-    const handleBackClick = () => {
-        setSelectedMovieID(null);
-    };
-
-    useEffect(() => {
-        if (currentPage > 1) {
-            fetchMovies(searchTerm, currentPage);
-        }
-    }, [currentPage]);
-
-    //왜.. infinity scroll이 원하는 것처럼 안 나오지..? 1p씩 나와야 하는데.. 팍하고 나오네..?
     return (
         <div>
             <InputButton setInputMovie={setInputMovie} />
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {loading ? (
-                <p>Loading...</p> // Loading 메시지
-            ) : selectedMovieID ? (
+            {selectedMovieID ? (
                 <MovieDetail imdbID={selectedMovieID} onBack={handleBackClick} />
             ) : (
                 <div>
-                    <MovieList movies={movies} onMovieClick={handleMovieClick} />
-                    <div ref={observerRef} style={{ height: '1px' }}></div>
+                    <MovieList movies={movies} onMovieClick={handleMovieClick} loading={loading} />
+                    <div ref={observerRef} style={{ height: '50px' }}></div>
                 </div>
             )}
         </div>
