@@ -1,33 +1,98 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import Movie from "./Movie";
+import axios from "axios";
 
 export default function MovieList() {
   const key = process.env.REACT_APP_API_KEY;
-  const url = `http://www.omdbapi.com/?apikey=${key}`;
   const movieRef = useRef(null);
   const [movies, setMovies] = useState([]);
-  // const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
+
+  // infinity scroll
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef(null);
+
+  const handleObserver = useCallback(
+    (entries) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (entries) observer.current.observe(entries);
+    },
+    [hasMore]
+  );
+
+  const instance = axios.create({
+    baseURL: `http://www.omdbapi.com/`,
+    params: {
+      apikey: key,
+    },
+  });
+
+  instance.interceptors.request.use(
+    (config) => {
+      console.log("로딩중...");
+      config.params = {
+        ...config.params,
+      };
+      return config;
+    },
+    (error) => {
+      console.log("error");
+    }
+  );
 
   const onClickSearch = () => {
     const search = movieRef.current.value;
+
+    setMovies([]);
+    setPage(1);
+    getMovieList(search, page);
+
     getMovieList(search);
   };
 
+  useEffect(() => {
+    if (page > 1) {
+      const search = movieRef.current.value;
+      getMovieList(search, page);
+    }
+  }, [page]);
+
   const getMovieList = async (search, page) => {
-    console.log(search);
-    const res = await fetch(`${url}&s=${search}&${page}`);
-    const data = await res.json();
-    const arrData = Object.values(data.Search);
-    setMovies(arrData);
-    console.log(movies);
+    try {
+      const res = await instance.get("", {
+        params: {
+          s: search,
+          page: page,
+        },
+      });
 
-    return movies;
+      if (res.data.Response === "True") {
+        const arrData = res.data.Search || [];
+        setMovies((prevMovies) => {
+          const newMovies = arrData.filter(
+            (movie) =>
+              !prevMovies.some((prevMovie) => prevMovie.imdbID === movie.imdbID)
+          );
+          return [...prevMovies, ...newMovies];
+        });
+        setHasMore(arrData.length > 0);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.log("error!!!!! : ", error.message);
+    }
   };
 
-  const paging = (page) => {
-    // const search = movieRef.current.value;
-    // getMovieList("frozen", page);
-  };
+  // const paging = (page) => {
+  //   const search = movieRef.current.value;
+  //   getMovieList("frozen", page);
+  // };
 
   return (
     <div className="movies">
@@ -42,12 +107,20 @@ export default function MovieList() {
       </div>
 
       <h2>MOVIE LIST</h2>
-      {movies == []
+
+      {movies.length === 0
         ? null
-        : movies.map((movie) => <Movie movie={movie} key={movie.imdbID} />)}
+        : movies.map((movie, index) => (
+            <div
+              key={movie.imdbID}
+              ref={index === movies.length - 1 ? handleObserver : null}
+            >
+              <Movie movie={movie} />
+            </div>
+          ))}
 
       <div>
-        <span onClick={paging(1)}>pagination</span>
+        <span>pagination</span>
       </div>
     </div>
   );
