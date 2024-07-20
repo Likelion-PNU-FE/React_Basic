@@ -7,8 +7,6 @@ const instance = axios.create({
     baseURL: 'https://www.omdbapi.com',
 });
 
-//
-
 instance.interceptors.request.use(
     (config) => {
         // 요청이 시작되기 전에 로딩 상태를 설정
@@ -23,6 +21,7 @@ instance.interceptors.request.use(
     (error) => {
         // 요청 에러 처리
         console.error('Request error:', error);
+
         return Promise.reject(error);
     }
 );

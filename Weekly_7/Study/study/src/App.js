@@ -47,7 +47,10 @@ const App = () => {
     }, [currentPage]);
 
     const fetchMovies = async (name, page = 1) => {
-        if (!name) return; // name이 빈 배열일 때 또한 searchTerm에 종속된 useEffect때문에 fetchMovies 실행함. 이를 막기위해 빈 배열이면 return;을 바로 해줬음
+        if (!name) {
+            return;
+        } // name이 빈 배열일 때 또한 searchTerm에 종속된 useEffect때문에 fetchMovies 실행함. 이를 막기위해 빈 배열이면 return;을 바로 해줬음
+        console.log(name, page);
         setLoading(true);
         try {
             const res = await instance.get('/', {
