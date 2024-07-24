@@ -1,0 +1,102 @@
+/* src/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffebec; /* 자몽 연한 색상 */
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #ff6384; /* 자몽 색상 */
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 2px solid #ff6384;
+    border-radius: 5px;
+    outline: none;
+    width: 300px;
+}
+
+.search-bar button {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff6384;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #c4345a; /* 자몽 다크 색상 */
+}
+
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.movie-card {
+    border: 1px solid #ff6384;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+}
+
+.movie-card h3 {
+    color: #ff6384;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.movie-detail {
+    background-color: #ffdadb;
+    max-height: 90%; /* 최대 높이 설정 */
+    overflow-y: auto; /* 스크롤 가능 */
+}
+
+.movie-detail-content {
+    color: #ff6384;
+}
+
+.movie-detail-content h2 {
+    color: #ff6384;
+    margin-bottom: 10px;
+}
+
+.movie-detail-content button {
+    background-color: #ff6384;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.movie-detail-content button:hover {
+    background-color: #c4345a;
+}
+
