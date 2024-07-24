@@ -1,0 +1,16 @@
+/* CSS -> 서로다른 파일이더라도 같은 이름으로 있으면 합쳤을 때 하나로 되더라*/
+
+body{
+  background-color : #131313;
+  color : #ffffff;
+}
+
+.page_button_container {
+  display: flex;
+  justify-content: center; 
+}
+
+.page_button_container button {
+  margin: 0 2px; 
+}
+

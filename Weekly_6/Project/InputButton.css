@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  height: 80px;
+  /*
+    display: flex => flexbox 레이아웃으로 설정하는 속성
+    -> 자식 요소 자유롭게 배치 정렬 가능
+    ex) 크기 조절 ( 컨테이너 크기에 맞추어 자동 조절 가능 )
+    ex) 정렬 ( justify-content, align-items )
+  */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color : #242424;
+  color : #ffffff;
+
+  margin-bottom:10px; /*아래 요소들(예로 MovieList, MovieDetail)이랑 약간의 공간을 만들고 싶어서 10px만큼 띄워줬음*/
+}
+
+.input_container {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  max-width: 650px;
+  width: 70%;
+}
+
+.input_field {
+  width: calc(100% - 50px);
+  height: 100%;
+  padding-left: 20px;
+  border: 2px solid #a9a9a9;
+  border-radius:4px;
+  font-size: 16px;
+  background-color: #131313;
+  color: #ffffff;
+}
+
+.input_field::placeholder {
+  color: #4e4e4e;
+}
+
+.submit_button {
+  width:40px;
+  height: 40px;
+  border-radius:50%;
+  margin-left:4px;
+  border: 2px solid #a9a9a9;
+  background-color: #131313;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* 마우스를 올렸을 때 포인터 커서 */
+  font-size:16px;
+  color:#ffffff;
+}
+
+.submit_button:hover {
+  background-color: #a9a9a9; /* 짙은 회색 */
+}

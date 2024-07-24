@@ -1,0 +1,23 @@
+.skeleton_item {
+  width: 19%;
+  margin: 0.5%;
+  display: flex;
+  flex-direction: column;
+  background: #444;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton_poster {
+  width: 100%;
+  padding-top: 150%;
+  background: #666;
+}
+
+.skeleton_text {
+  height: 20px;
+  width : 50%;
+  margin: 10px 5px;
+  background: #666;
+}
